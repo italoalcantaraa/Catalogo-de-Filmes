@@ -22,6 +22,8 @@ body{
 	background-color: #ffff;
 }
 
+
+
 .conteudo{
 	display: flex;
 	flex-direction: column;
@@ -54,6 +56,11 @@ form input{
 	border-radius: 3px;
 }
 
+#opcoes{
+	padding: 8px;
+	background-color: red;
+}
+
 #enviar{
 	background-color: #0084FF;
 	color: white;
@@ -69,11 +76,37 @@ form input{
 	transition: 0.5s;
 }
 
-.resposta{
-	display: flex;
-	flex-direction: row;
+
+#cars{
+	background-color: red;
+	padding: 20px;
 }
 
 img{
-	width: 100px;
+	width: 190px;
+	margin-bottom: 10px;
+}
+
+.filmes{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	background-color: white;
+	padding: 15px;
+	border-radius: 5px;
+	font-weight: bold;
+	font-size: 17px;
+	margin-bottom: 20px;
+	box-shadow: 0.2px 0.2px 5px #A9A9A9;
+}
+
+#classificacao{
+	display: flex;
+	font-size: 19px;
+	align-items: center;
+	justify-content: center;
+	width: 35px;
+	color: white;
+	padding: 5px;
+	border-radius: 3px;
 }

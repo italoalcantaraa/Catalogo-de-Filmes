@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.ProcessBuilder.Redirect;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,34 +28,46 @@ public class ServeletFilmes extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		try (PrintWriter out = response.getWriter()) {
-			out.print("<!DOCTYPE html>");
-			out.print("<html lang=\"pt-BR\">");
-			out.print("<head>");
-
-			out.print("<meta charset=\"UTF-8\">");
-			out.print("<title>ViaCep</title>");
-			out.print("<link rel=\"stylesheet\" type=\"text/css\" href=\"\">");
-			out.print("</head>");
-			out.print("<body>");
-
-			try {
-				ListFilmes listFilmes = new ListFilmes();
-
-				String nome = request.getParameter("nome");
-				String url = request.getParameter("url");
-				String classificacao = request.getParameter("classificacao");
-
-			} catch (Exception e) {
-
+			throws ServletException, IOException {		
+		try {
+			String nome = request.getParameter("nome");
+			String classificacao = request.getParameter("classificacao");
+			String url= request.getParameter("url");
+			
+			String styleClassificacao = "";
+			if(nome == null || nome == "" || url == null || url == "") {
+				request.setAttribute("erro", "*Informe os campos*");
+				request.getRequestDispatcher("Home.jsp").forward(request, response);
+				return;
 			}
-
-			out.print("</body>");
-			out.print("</html>");
-
+			
+			
+			if(classificacao.equalsIgnoreCase("L"))
+				styleClassificacao = "green";
+			else if(classificacao.equalsIgnoreCase("10"))
+				styleClassificacao = "blue";
+			else if(classificacao.equalsIgnoreCase("12"))
+				styleClassificacao = "yellow";
+			else if(classificacao.equalsIgnoreCase("14"))
+				styleClassificacao = "orange";
+			else if(classificacao.equalsIgnoreCase("16"))
+				styleClassificacao = "red";
+			else 
+				styleClassificacao = "black";
+		
+			// Adiciona o filme
+			ListFilmes.filmesList.add(new Filmes(nome, url, classificacao, styleClassificacao));
+		
+			//Deixa os campos vazios após adicionar um filme
+			nome = null;
+			classificacao = null;
+			url = null;
+			
+			request.getRequestDispatcher("Home.jsp").forward(request, response);
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
+		
 	}
 
 }
